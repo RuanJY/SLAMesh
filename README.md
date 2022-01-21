@@ -1,7 +1,7 @@
 # SLAMesh
 ## Real-time LiDAR Simultaneous Localization and Meshing
 
-
+**Personal repository** of our work SLAMesh, please raise issues **here** so that I can get reminders immediately. The code may also more friendly to use and read, but I don't always guarantee it can replicate the result in out paper.
 
 ### Update ###
 
@@ -90,7 +90,20 @@ Install ros following [ROS Installation](http://wiki.ros.org/melodic/Installatio
 
 **Ceres**
 
-Follow [Ceres Installation](http://ceres-solver.org/installation.html) to install Ceres Solver, tested version: 2.0, 2.1 (Error observed with V-2.2).
+Install Ceres Solver, version 2.0 or 2.1. follow [Ceres Installation](http://ceres-solver.org/installation.html).
+
+Notice that version > 2.1 may have some compatibility issues with our code. So you can use following command to install ceres:
+```
+apt-get install cmake libgoogle-glog-dev libgflags-dev libatlas-base-dev libsuitesparse-dev -y
+
+git clone https://github.com/ceres-solver/ceres-solver.git -b 2.1.0
+
+mkdir ceres-bin && cd ceres-bin && \
+
+cmake .. && make -j$(($(nproc)-2)) && \
+
+make install
+```
 
 **mesh_tools**
 
@@ -109,14 +122,15 @@ sudo apt-get install build-essential \
      qt5-default libqt5opengl5-dev liblz4-dev \
      libopencv-dev libyaml-cpp-dev
 ```
-In Ubuntu18.04, use `libvtk6` because `libvtk7` will conflict with `pcl-ros` in melodic.
+If in Ubuntu18.04, use `libvtk6` because `libvtk7` will conflict with `pcl-ros` in melodic.
 ```
 sudo apt-get install  libvtk6-dev libvtk6-qt-dev
 ```
-In Ubuntu 20.04,
+Else if, in Ubuntu 20.04,
 ```
 sudo apt-get install  libvtk7-dev libvtk7-qt-dev
 ```
+End of IF
 
 then:
 ```
@@ -135,7 +149,6 @@ It may take you some time.
 2. Install mesh_tools, (I can not install it from official ROS repos now, so I build it from source)
 
 ```
-mkdir -p ./slamesh_ws/src
 cd slamesh_ws/src
 git clone https://github.com/naturerobots/mesh_tools.git
 cd ..
@@ -159,19 +172,39 @@ source ~/slamesh_ws/src/devel/setup.bash
 
 If you encounter some trouble with prerequisites, the problem may lay down on the prerequisite; we advise you to use our docker image:
 
+1, Build the docker image use Dockerfile:
+
+```
+cd slamesh_ws/src/SLAMesh/docker/
+chmod +x run_docker.sh
+./run_docker.sh
+```
+
+run it with option `-v` to remap the path of dataset in your PC into the docker, like
+
+```
+docker run -it -v path_of_dataset_in_your_PC:/root/dataset \
+--name test_slamesh slamesh
+```
+The slamesh are built, so source the workspace and run the launch file.
+
+2, Use the built image with VNC:
+
 ```
 docker pull pleaserun/rjy_slam_work:slamesh_18.04
 ```
-After cloning the image, remember to run it with correct path of dataset via option `-v`, like:
+
+run it with option `-v` to remap the path of dataset in your PC into the docker,
 ```
 docker run -it -p 5900:5900 -p 2222:22 -e RESOLUTION=1920x1080  \
--v path_in_your_PC:/root/dataset \
+-v path_of_dataset_in_your_PC:/root/dataset \
 --name test_slamesh \
 pleaserun/rjy_slam_work:slamesh_18.04
 ```
-Then you can use VNC to enter a graphical interface via port 5900, or use ssh to connect container via port 2222.
 
-Move to the dictionary `slamesh_ws/src`, and complete step after 2.1.
+In this way you can use VNC to enter a graphical interface via port 5900, or use ssh to connect container via port 2222.
+
+Move to the dictionary `slamesh_ws/src`, and complete step from 2.2.
 
 ## 3. Usage
 

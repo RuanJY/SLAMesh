@@ -799,6 +799,8 @@ void SLAMesher::pubTf(){
     Transf transf_now = g_data.T_seq[g_data.step];
     //pub odometry msg
     nav_msgs::Odometry odom_msg;
+    odom_msg.header.frame_id = "/map";
+    odom_msg.child_frame_id = "/slamesher_odom";
     if(param.read_offline_pcd){
         ros::Time now_time = ros::Time::now();
         odom_msg.header.stamp = now_time;
