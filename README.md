@@ -175,6 +175,8 @@ You should get:
 
 If you can not see the mesh, check that the Rviz plugin is sourced correctly. When `mesh_visualization` is disabled, only vertices are published as a point cloud.
 
+
+
 ### 3.2 Run Mai City dataset:
 
 The dataset is available at [Mai City Dataset](https://www.ipb.uni-bonn.de/data/mai-city-dataset/). Sequence 01 can be fed into SLAM and sequence 02 can be accumulated into a dense ground truth point cloud map.
@@ -218,19 +220,24 @@ cd KITTI_odometry_evaluation_tool/
 python evaluation.py --result_dir=./data/ --eva_seqs=07.pred
 ```
 
+Run SLAMesh by:
+```
+roslaunch slamesh slamesh_kitti_odometry.launch seq:=/07
+```
 Currently, the result on the KITTI odometry benchmark is:
 
 | Sequence         | 00     | 01     | 02     | 03     | 04     | 05     | 06     | 07     | 08     | 09     | 10     | Average |
 | ---------------- | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------- |
 | Translation (%)  | 0.771  | 1.2519 | 0.7742 | 0.6366 | 0.5044 | 0.5182 | 0.5294 | 0.3607 | 0.8745 | 0.573  | 0.6455 | 0.6763  |
 | Rotation (deg/m) | 0.0035 | 0.003  | 0.003  | 0.0043 | 0.0013 | 0.003  | 0.0022 | 0.0023 | 0.0027 | 0.0025 | 0.0042 | 0.0029  |
-Notice that to achieve better KITTI odometry performance, the parameter should set as followed:
+
+Notice that to achieve better KITTI odometry performance, the parameter in `slamesh_kitti_meshing.launch` are set as followed:
 ```
 full_cover: false # due to discontinuity phenomenon between cells, shirnk the test locations can improve accuracy.
 num_margin_old_cell: 500 # margin old cells, because KITTI evaluate odometry accuracy rather than consistency.
 ```
 
-However, if you want to have better meshing result, they should be:
+However, if you want to have better meshing result, they should be: (in launch `slamesh_kitti_meshing.launch`)
 ```
 full_cover: true # so that there is no gap between cells.
 num_margin_old_cell: -1  # do not margin old cells, the cell-based map will have implicit loop closure effect.
