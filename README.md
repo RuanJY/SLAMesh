@@ -1,9 +1,11 @@
 # SLAMesh
 ## Real-time LiDAR Simultaneous Localization and Meshing
 
+Personal repository of our work SLAMesh, please raise issues here so that I can get reminders immediately.
+
 ### Update ###
 
-20/July/2023, Code released. Feel free to contact me with any questions.
+14/Aug/2023, Code released. Feel free to contact me with any questions.
 
 10/Mar/2023, Preprint of our paper can be found on: [**paper**](https://arxiv.org/pdf/2303.05252.pdf 'title text').
 
@@ -20,7 +22,7 @@ This work designs a **S**imultaneously **L**ocalization **A**nd **Mesh**ing syst
 - Different from point-cloud (LOAM), NDT, and Surfel map SLAM, this work has established a new approach to LiDAR SLAM.
 - The key idea is that we conduct a reconstruction of the raw point cloud before registration. This strategy enables fast meshing, data-association without the kd-tree.
 
-<img src="https://github.com/RuanJY/slamesh/blob/master/fig/fig1_mesh_by_slamesh.png" alt="cover" width="60%" />
+<img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/fig1_mesh_by_slamesh.png" alt="cover" width="60%" />
 
 Author: Jianyuan Ruan, Bo Li, Yibo Wang, Yuxiang Sun. 
 
@@ -30,13 +32,13 @@ Email: jianyuan.ruan@connect.polyu.hk, yx.sun@polyu.edu.hk
 
 On public dataset:
 
-<a href="https://www.youtube.com/watch?v=bm9u0-d4giw" target="_blank"><img src="https://github.com/RuanJY/slamesh/blob/master/fig/cover.png" alt="video1" width="85%" /></a>
+<a href="https://www.youtube.com/watch?v=bm9u0-d4giw" target="_blank"><img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/cover.png" alt="video1" width="85%" /></a>
 
 (or watch it on [bilibili](https://www.bilibili.com/video/BV1HB4y1J7k3/?vd_source=a7075e8cce0b5d3273610c2b2539377d))
 
 On self-collected dataset:
 
-<a href="https://www.youtube.com/watch?v=-zMNndGmUho" target="_blank"><img src="https://github.com/RuanJY/slamesh/blob/master/fig/real_word_cover2.png" alt="video2" width="85%" /></a>
+<a href="https://www.youtube.com/watch?v=-zMNndGmUho" target="_blank"><img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/real_word_cover2.png" alt="video2" width="85%" /></a>
 
 (or watch it on [bilibili](https://www.bilibili.com/video/BV1u84y1h7g3/?vd_source=a7075e8cce0b5d3273610c2b2539377d))
 
@@ -128,15 +130,12 @@ catkin_make
 source devel/setup.bash
 ```
 
-
-
-
 ### 2.2 SLAMesh
 
 Clone this repository and build:
 ```
 cd slamesh_ws/src
-git clone https://github.com/RuanJY/slamesh.git
+git clone https://github.com/RuanJY/SLAMesh.git
 cd ..
 catkin_make
 source ~/slamesh_ws/src/devel/setup.bash
@@ -167,11 +166,11 @@ file_loc_dataset
 ```
 For example, if you want to run the 07 sequence:
 ```
-roslaunch slamesh slamesh_kitti.launch seq:=/07
+roslaunch slamesh slamesh_kitti_meshing.launch seq:=/07
 ```
 You should get:
 
-<img src="https://github.com/RuanJY/slamesh/blob/master/fig/kitti07_mesh.png" alt="kitti07_mesh" width="60%" />
+<img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/kitti07_mesh.png" alt="kitti07_mesh" width="60%" />
 
 
 If you can not see the mesh, check that the Rviz plugin is sourced correctly. When `mesh_visualization` is disabled, only vertices are published as a point cloud.
@@ -187,12 +186,12 @@ roslaunch slamesh slamesh_maicity.launch seq:=/01
 ```
 You should get:
 
-<img src="https://github.com/RuanJY/slamesh/blob/master/fig/maicity_mesh.png" alt="maicity_mesh" width="60%" />
+<img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/maicity_mesh.png" alt="maicity_mesh" width="60%" />
 
 
 ### 3.3 Run real-time ros bag
 ```
-roslaunch slamesh slamesh_ouster_real_time.launch
+roslaunch slamesh slamesh_online.launch
 ```
 And play your bag, in launch file, remap the topic "/velodyne_points" to your LiDAR topic like "/os_cloud_node/points".
 ```
@@ -219,13 +218,12 @@ cd KITTI_odometry_evaluation_tool/
 python evaluation.py --result_dir=./data/ --eva_seqs=07.pred
 ```
 
-Currently, the result on the KITTI odometry benchmark is: (slightly improved compared with the paper)
+Currently, the result on the KITTI odometry benchmark is:
 
 | Sequence         | 00     | 01     | 02     | 03     | 04     | 05     | 06     | 07     | 08     | 09     | 10     | Average |
 | ---------------- | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------- |
-| Translation (%)  | 0.6994 | 1.2841 | 0.7898 | 0.6366 | 0.5044 | 0.4307 | 0.5265 | 0.3605 | 0.9521 | 0.573  | 0.6455 | 0.6730  |
-| Rotation (deg/m) | 0.0031 | 0.0029 | 0.003  | 0.0043 | 0.0013 | 0.0027 | 0.0022 | 0.0023 | 0.0028 | 0.0025 | 0.0042 | 0.0028  |
-
+| Translation (%)  | 0.771  | 1.2519 | 0.7742 | 0.6366 | 0.5044 | 0.5182 | 0.5294 | 0.3607 | 0.8745 | 0.573  | 0.6455 | 0.6763  |
+| Rotation (deg/m) | 0.0035 | 0.003  | 0.003  | 0.0043 | 0.0013 | 0.003  | 0.0022 | 0.0023 | 0.0027 | 0.0025 | 0.0042 | 0.0029  |
 Notice that to achieve better KITTI odometry performance, the parameter should set as followed:
 ```
 full_cover: false # due to discontinuity phenomenon between cells, shirnk the test locations can improve accuracy.
