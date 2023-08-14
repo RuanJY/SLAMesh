@@ -3,7 +3,7 @@
 
 Personal repository of our work SLAMesh, please raise issues here so that I can get reminders immediately.
 
-We are confident that this work introduced a novel approach to LiDAR SLAM, so we publish the code to benefit robotics society and welcome everyone to explore opportunities in this approach.
+We are confident that this work introduced a novel approach to LiDAR SLAM, so we publish the code to benefit robotics society and welcome everyone to explore opportunities in this approach. :two_men_holding_hands:
 
 ### Update ###
 
