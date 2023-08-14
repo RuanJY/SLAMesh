@@ -7,7 +7,7 @@ We are confident that this work introduced a novel approach to LiDAR SLAM, so we
 
 ### Update ###
 
-14/Aug/2023, Code released. Feel free to contact me with any questions.
+15/Aug/2023, Code released. Spent some time to make my code more user-friendly :triumph:, feel free to contact me with any questions.
 
 10/Mar/2023, Preprint of our paper can be found on: [**paper**](https://arxiv.org/pdf/2303.05252.pdf 'title text').
 
@@ -68,7 +68,7 @@ If you understand Chinese, you can also refer to my [Master's thesis](https://ww
 
 ### 2.1 Prerequisite
 
-We test our code in *Ubuntu18.04* with *ROS melodic*.
+We tested our code in *Ubuntu18.04* with *ROS melodic* and *Ubuntu20.04* with *ROS neotic*.
 
 **ROS**
 
@@ -76,7 +76,7 @@ Install ros following [ROS Installation](http://wiki.ros.org/melodic/Installatio
 
 **Ceres**
 
-Install Ceres Solver version > 2.0. follow [Ceres Installation](http://ceres-solver.org/installation.html).
+Install Ceres Solver, version > 2.0. follow [Ceres Installation](http://ceres-solver.org/installation.html).
 
 **mesh_tools**
 
@@ -141,9 +141,22 @@ catkin_make
 source ~/slamesh_ws/src/devel/setup.bash
 ```
 ### 2.3 Docker support
-If you encounter some trouble with prerequisites, the problem may lay down on the prerequisite; we advise you to use our docker image: TO DO
 
-After cloning the image, remember to move to the dictionary `slamesh_ws/src`, git pull, and complete step 2.2.
+If you encounter some trouble with prerequisites, the problem may lay down on the prerequisite; we advise you to use our docker image:
+
+```
+docker pull pleaserun/rjy_slam_work:slamesh_18.04
+```
+After cloning the image, remember to run it with correct path of dataset via option `-v`, like:
+```
+docker run -it -p 5900:5900 -p 2222:22 -e RESOLUTION=1920x1080  \
+-v path_in_your_PC:/root/dataset \
+--name test_slamesh \
+pleaserun/rjy_slam_work:slamesh_18.04
+```
+Then you can use VNC to enter a graphical interface via port 5900, or use ssh to connect container via port 2222.
+
+Move to the dictionary `slamesh_ws/src`, and complete step after 2.1.
 
 ## 3. Usage
 
@@ -191,7 +204,7 @@ You should get:
 <img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/maicity_mesh.png" alt="maicity_mesh" width="60%" />
 
 
-### 3.3 Run real-time ros bag
+### 3.3 Run online or ros bag
 ```
 roslaunch slamesh slamesh_online.launch
 ```
@@ -210,7 +223,7 @@ SLAMesh saves all its report to the path `result_path`. If you find ros warning:
 ### 4.1 Kitti odometry accuracy
 
 The file `0x_pred.txt` is the KITTI format path. I use [KITTI odometry evaluation tool
-](https://github.com/LeoQLi/KITTI_odometry_evaluation_tool) for evaluation.
+](https://github.com/LeoQLi/KITTI_odometry_evaluation_tool) for evaluation:
 
 ```
 cd slamesh_ws
