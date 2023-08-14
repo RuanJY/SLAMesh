@@ -3,6 +3,8 @@
 
 Personal repository of our work SLAMesh, please raise issues here so that I can get reminders immediately.
 
+We are confident that this work introduced a novel approach to LiDAR SLAM, so we publish the code to benefit robotics society and welcome everyone to explore opportunities in this approach.
+
 ### Update ###
 
 14/Aug/2023, Code released. Feel free to contact me with any questions.
@@ -25,8 +27,6 @@ This work designs a **S**imultaneously **L**ocalization **A**nd **Mesh**ing syst
 <img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/fig1_mesh_by_slamesh.png" alt="cover" width="60%" />
 
 Author: Jianyuan Ruan, Bo Li, Yibo Wang, Yuxiang Sun. 
-
-Email: jianyuan.ruan@connect.polyu.hk, 120052@zust.edu.cn, me-yibo.wang@connect.polyu.hk, yx.sun@polyu.edu.hk
 
 ### 1.2 Demo video
 
@@ -266,19 +266,17 @@ TODO
 
 ## Contact
 
-jianyuan.ruan@connect.polyu.hk
+Author: Jianyuan Ruan, Bo Li, Yibo Wang, Yuxiang Sun.
 
-120052@zust.edu.cn
-
-me-yibo.wang@connect.polyu.hk
-
-yx.sun@polyu.edu.hk
+Email: jianyuan.ruan@connect.polyu.hk, 120052@zust.edu.cn, me-yibo.wang@connect.polyu.hk, yx.sun@polyu.edu.hk
 
 ## Acknowledgement
 
+We build most of the code from scratch, but we also want to acknowledge the following open-source projects:
+
 [TanksAndTemples/evaluation](https://github.com/isl-org/TanksAndTemples/tree/master/python_toolbox/evaluation): evaluation
 
-[A-LOAM](): kitti dataset loader and tic-toc
+[A-LOAM](https://github.com/HKUST-Aerial-Robotics/A-LOAM): kitti dataset loader and tic-toc
 
 
 
