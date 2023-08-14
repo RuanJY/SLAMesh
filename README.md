@@ -26,7 +26,7 @@ This work designs a **S**imultaneously **L**ocalization **A**nd **Mesh**ing syst
 
 Author: Jianyuan Ruan, Bo Li, Yibo Wang, Yuxiang Sun. 
 
-Email: jianyuan.ruan@connect.polyu.hk, yx.sun@polyu.edu.hk
+Email: jianyuan.ruan@connect.polyu.hk, 120052@zust.edu.cn, me-yibo.wang@connect.polyu.hk, yx.sun@polyu.edu.hk
 
 ### 1.2 Demo video
 
@@ -140,10 +140,10 @@ cd ..
 catkin_make
 source ~/slamesh_ws/src/devel/setup.bash
 ```
-### 2.3 Docker
-If you encounter some trouble with prerequisites, the problem may lay down on the prerequisite; we advise you to use our docker image:
+### 2.3 Docker support
+If you encounter some trouble with prerequisites, the problem may lay down on the prerequisite; we advise you to use our docker image: TO DO
 
-After cloning the image, move to the dictionary `slamesh_ws/src` and complete step 2.2.
+After cloning the image, remember to move to the dictionary `slamesh_ws/src`, git pull, and complete step 2.2.
 
 ## 3. Usage
 
@@ -205,7 +205,7 @@ You can use our sample data recorded with an Ouster OS1-32 LiDAR: [SLAMesh datas
 
 ## 4. Evaluation
 
-SLAMesh saves all its report to the path `result_path`. If you find ros warning: ` Can not open Report file`, create the folder of `result_path` first.
+SLAMesh saves all its report to the path `result_path`. If you find ros warning: ` Can not open Report file`, create the folder of `result_path` first, or just follow the steps below.
 
 ### 4.1 Kitti odometry accuracy
 
@@ -267,6 +267,10 @@ TODO
 ## Contact
 
 jianyuan.ruan@connect.polyu.hk
+
+120052@zust.edu.cn
+
+me-yibo.wang@connect.polyu.hk
 
 yx.sun@polyu.edu.hk
 
