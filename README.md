@@ -1,13 +1,15 @@
 # SLAMesh
 ## Real-time LiDAR Simultaneous Localization and Meshing
 
-Personal repository of our work SLAMesh, please raise issues here so that I can get reminders immediately.
+**Personal repository** of our work SLAMesh, please raise issues **here** so that I can get reminders immediately. The code may also more friendly to read but I don't always replicate the result in out paper (now it can).
 
 We are confident that this work introduced a novel approach to LiDAR SLAM, so we publish the code to benefit robotics society and welcome everyone to explore opportunities in this approach. :two_men_holding_hands:
 
+You are also welcome to visit the [repo in our lab](https://github.com/lab-sun/SLAMesh).
+
 ### Update ###
 
-15/Aug/2023, Code released. Spent some time to make my code more user-friendly :triumph:, feel free to contact me with any questions.
+17/Aug/2023, Code released. Spent some time to make my code more user-friendly :triumph:, feel free to contact me with any questions.
 
 10/Mar/2023, Preprint of our paper can be found on: [**paper**](https://arxiv.org/pdf/2303.05252.pdf 'title text').
 
@@ -285,13 +287,13 @@ Email: jianyuan.ruan@connect.polyu.hk, 120052@zust.edu.cn, me-yibo.wang@connect.
 
 ## Acknowledgement
 
-We build most of the code from scratch, but we also want to acknowledge the following open-source projects:
+Most of the code are build from scratch , but we also want to acknowledge the following open-source projects:
 
 [TanksAndTemples/evaluation](https://github.com/isl-org/TanksAndTemples/tree/master/python_toolbox/evaluation): evaluation
 
 [A-LOAM](https://github.com/HKUST-Aerial-Robotics/A-LOAM): kitti dataset loader and tic-toc
 
-
+[F-LOAM](https://github.com/wh200720041/floam): help me to write the ceres residuals
 
 
 
