@@ -1,7 +1,7 @@
 # SLAMesh
 ## Real-time LiDAR Simultaneous Localization and Meshing
 
-**Personal repository** of our work SLAMesh, please raise issues **here** so that I can get reminders immediately. The code may also more friendly to use and read, but I don't always replicate the result in out paper (now it can).
+**Personal repository** of our work SLAMesh, please raise issues **here** so that I can get reminders immediately. The code may also more friendly to use and read, but I don't guarantee it can always replicate the result in out paper (now it can).
 
 We are confident that this work introduced a novel approach to LiDAR SLAM, so we publish the code to benefit robotics society and welcome everyone to explore opportunities in this approach. :two_men_holding_hands:
 
