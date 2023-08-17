@@ -7,7 +7,7 @@ We are confident that this work introduced a novel approach to LiDAR SLAM, so we
 
 ### Update ###
 
-15/Aug/2023, Code released. Spent some time to make my code more user-friendly :triumph:, feel free to contact me with any questions.
+17/Aug/2023, Code released. Spent some time to make my code more user-friendly :triumph:, feel free to contact me with any questions.
 
 10/Mar/2023, Preprint of our paper can be found on: [**paper**](https://arxiv.org/pdf/2303.05252.pdf 'title text').
 
