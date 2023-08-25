@@ -5,8 +5,6 @@
 
 We are confident that this work introduced a novel approach to LiDAR SLAM, so we publish the code to benefit robotics society and welcome everyone to explore opportunities in this approach. :two_men_holding_hands:
 
-You are also welcome to visit the [repo in our lab](https://github.com/lab-sun/SLAMesh).
-
 ### Update ###
 
 17/Aug/2023, Code released. Spent some time to make my code more user-friendly :triumph:, feel free to contact me with any questions.
@@ -47,24 +45,24 @@ On self-collected dataset:
 ### 1.3 Find more detail
 
 If you find our research helpful, please cite our [**paper**](https://arxiv.org/pdf/2303.05252.pdf 'title text'). :
-```
-[1] Jianyuan Ruan, Bo Li, Yibo Wang, and Yuxiang Sun, "SLAMesh: Real-time
-LiDAR Simultaneous Localization and Meshing" ICRA 2023. 
-```
+
+[1] Jianyuan Ruan, Bo Li, Yibo Wang, and Yuxiang Sun, "SLAMesh: Real-time LiDAR Simultaneous Localization and Meshing" ICRA 2023. 
+
 
 Other related papers:
-```
-[2] Jianyuan Ruan, Bo Li, Yinqiang Wang and Zhou Fang, "GP-SLAM+: real-time
-3D lidar SLAM based on improved regionalized Gaussian process map
-reconstruction," IROS 2020.
 
-[3] Bo Li, Yinqiang Wang, Yu Zhang. Wenjie Zhao, Jianyuan Ruan, and Pin Li,
-"GP-SLAM: laser-based SLAM approach based on regionalized Gaussian process
-map reconstruction". Auton Robot 2020.
-```
+[2] Jianyuan Ruan, Bo Li, Yinqiang Wang and Zhou Fang, "GP-SLAM+: real-time 3D lidar SLAM based on improved regionalized Gaussian process map reconstruction," IROS 2020. [link](https://ieeexplore.ieee.org/abstract/document/9341028).
 
-If you understand Chinese, you can also refer to my [Master's thesis](https://www.cnki.net/KCMS/detail/detail.aspx?dbcode=CMFD&dbname=CMFD202101&filename=1020413366.nh&uniplatform=OVERSEA&v=bau761Q363a22-250-r1zodKdsRM2f8qd7_GsHgUJXZ6Fyy2BkPgtk4nClfy_MyQ) and an article on the WeChat platform: [SLAMesh: 实时LiDAR定位与网格化模型构建
-](https://mp.weixin.qq.com/s/zYORZ1sOVkh-UnPkzzfh_g)
+[3] Bo Li, Jianyuan Ruan, Yu Zhang, et al, 3D SLAM method based on improved regionalized Gaussian process map construction, 2020 International Conference on Guidance, Navigation and Control (ICGNC), 2022. [link](https://link.springer.com/chapter/10.1007/978-981-15-8155-7_296)
+
+[4] Jianyuan Ruan, Zhou Fang, Bo Li, et al, Evaluation of GP-SLAM in real-world environments, 2019 Chinese Automation Congress (CAC), 2019. [link](https://ieeexplore.ieee.org/document/8996403)
+
+[5] Bo Li, Yinqiang Wang, Yu Zhang. Wenjie Zhao, Jianyuan Ruan, and Pin Li, "GP-SLAM: laser-based SLAM approach based on regionalized Gaussian process map reconstruction". Auton Robot 2020.[link](https://link.springer.com/article/10.1007/s10514-020-09906-z)
+
+
+If you understand Chinese, you can also refer to my [Master's thesis](https://connectpolyu-my.sharepoint.com/:b:/g/personal/21041552r_connect_polyu_hk/ESjrlb1oNbVMr4tFeG4bhY0BO0jmY-hlC61a3y67whp-Ww?e=pqOtjT) (now can download it without login) and an article on the WeChat platform: [SLAMesh: 实时LiDAR定位与网格化模型构建
+](https://mp.weixin.qq.com/s/zYORZ1sOVkh-UnPkzzfh_g).
+
 
 ## 2. Install
 
