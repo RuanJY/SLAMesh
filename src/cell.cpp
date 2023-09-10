@@ -284,21 +284,21 @@ void Cell::reconstructSurfaces(bool glb_cell_not_surface){
     ROS_DEBUG("updateVertices");
     //init
     //double dyna_thr_grid_ratio = 0.5;
-    int num_test = param.num_test*param.num_test;
+    int num_test_square = param.num_test * param.num_test;
     double variance_map_update = param.variance_map_update;
     Eigen::Matrix<double, 1, Eigen::Dynamic> update, observe, variance_update ,variance_observe;
-     update = observe = variance_update = variance_observe = Eigen::MatrixXd::Zero(1, num_test);
+     update = observe = variance_update = variance_observe = Eigen::MatrixXd::Zero(1, num_test_square);
 
     PointMatrix & points_old = ary_cell_vertices[update_direction];
     PointMatrix & points_new = cell_new.ary_cell_vertices[update_direction];
 
-     update = points_old.point.leftCols(num_test).row(update_direction);
-     observe = points_new.point.leftCols(num_test).row(update_direction);
-     variance_update = points_old.variance.leftCols(num_test);
-     variance_observe = points_new.variance.leftCols(num_test);
+     update = points_old.point.leftCols(num_test_square).row(update_direction);
+     observe = points_new.point.leftCols(num_test_square).row(update_direction);
+     variance_update = points_old.variance.leftCols(num_test_square);
+     variance_observe = points_new.variance.leftCols(num_test_square);
 
     //iteratively least square update
-    for(int i = 0; i < num_test; i++){
+    for(int i = 0; i < num_test_square; i++){
         if((variance_update(0, i) <= variance_map_update) && (variance_observe(0, i) <= variance_map_update)){
             update(0, i)   = (update(0, i) * variance_observe(0, i) + observe(0, i) * variance_update(0, i))
                              / (variance_update(0, i) + variance_observe(0, i));
@@ -311,10 +311,10 @@ void Cell::reconstructSurfaces(bool glb_cell_not_surface){
     }
     updated_times[update_direction] ++;
 
-     points_old.point.leftCols(num_test).row(update_direction) = update;
-     points_old.variance.leftCols(num_test) = variance_update;
+     points_old.point.leftCols(num_test_square).row(update_direction) = update;
+     points_old.variance.leftCols(num_test_square) = variance_update;
 
-     points_old.variance_sum = points_old.variance.leftCols(num_test).sum();
+     points_old.variance_sum = points_old.variance.leftCols(num_test_square).sum();
 }
 void Cell::updateViewedLocation(const Transf & transf_viewed) {
     //iteratively update the view direction from sensor to certain surface inside a cell

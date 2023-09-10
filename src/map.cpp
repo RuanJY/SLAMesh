@@ -58,14 +58,14 @@ bool getPointCloud(PointMatrix & points_result, pcl::PointCloud<pcl::PointXYZ> &
     //range filter
     int filter_point_step = 1;//simple down-sample
     double range_max_square = range_max * range_max,
-           min_range_sqaure = range_min * range_min;
+           range_min_sqaure = range_min * range_min;
     if(range_max <= 100){
         points_result.clear_quick();
         for(int i = 0; i < points_raw.num_point; i += filter_point_step){
             double range_sqaure = points_raw.point(0, i) * points_raw.point(0, i) +
                                   points_raw.point(1, i) * points_raw.point(1, i) +
                                   points_raw.point(2, i) * points_raw.point(2, i);
-            if(range_sqaure < range_max_square && range_sqaure > min_range_sqaure ){
+            if(range_sqaure < range_max_square && range_sqaure > range_min_sqaure ){
                 points_result.addPoint(points_raw.point.col(i));
             }
         }
@@ -75,6 +75,10 @@ bool getPointCloud(PointMatrix & points_result, pcl::PointCloud<pcl::PointXYZ> &
         points_result = points_raw;
     }
     std::cout << "after filter:" << points_result.num_point << " points. time: " << t_get_pcl.toc() << std::endl;
+    if(points_result.num_point <= 0){
+        std::cout << "No valid points in the scan, please check your data or parameters, range_max and range_min." << std::endl;
+        return false;
+    }
     pcl_got = *pcl_filtered_ptr;
     g_data.time_down_sample(0, g_data.step) = t_down_sample.toc();
     g_data.time_get_pcl(0, g_data.step) = t_get_pcl.toc();
@@ -409,52 +413,6 @@ OverlapCellsRelation Map::overlapCellsCrossCell(Map& map_glb, int overlap_length
     g_data.time_find_overlap(0, g_data.step) += t_overlap_region.toc();
     return overlap_ship;
 }
-#ifdef VOXBLOX
-OverlapCellsRelation Map::overlappedCellsForTsdf(Map & map_glb){
-    //only find updated cells in map_glb and store them in multi_cells_glb
-    ROS_DEBUG("overlappedCellsForTsdf");
-    TicToc t_overlap_region;
-    double grid = param.grid;
-    OverlapCellsRelation overlap_ship;
-    // Cached index map.
-    Eigen::Matrix<int, 3, 27> cube_index_offsets;
-    cube_index_offsets <<
-                       0, 0, 0, 0, 0, 0, 0, 0, 0,-1,-1,-1,-1,-1,-1,-1,-1,-1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-            0, 0, 0,-1,-1,-1, 1, 1, 1, 0, 0, 0,-1,-1,-1, 1, 1, 1, 0, 0, 0,-1,-1,-1, 1, 1, 1,
-            0,-1, 1, 0,-1, 1, 0,-1, 1, 0,-1, 1, 0,-1, 1, 0,-1, 1, 0,-1, 1, 0,-1, 1, 0,-1, 1;
-/*
- *     Eigen::Matrix<int, 3, 9> cube_index_offsets;
-cube_index_offsets <<
-                        0, 1,-1, 0, 0, 0, 0,
-            0, 0, 0, 1,-1, 0, 0,
-            0, 0, 0, 0, 0, 1,-1;*/
-    for(int i_bucket=0; i_bucket < index_bucket_enough_point.size(); i_bucket++){
-        auto & i_cell_now = cells_now[index_bucket_enough_point[i_bucket]];
-        std::vector<Cell*> multi_overlap_cell_glb(cube_index_offsets.size());
-        auto i_cell_glb = map_glb.cells_glb.find(i_cell_now.second.hash_position);
-        if(i_cell_glb == map_glb.cells_glb.end()){
-            break;
-        }
-        //cross overlap
-        for(int i_offset = 0; i_offset < cube_index_offsets.cols(); i_offset++){
-            double tmp_posi = getPosiWithTime(i_cell_now.second.region.x_min + cube_index_offsets(0, i_offset) * grid,
-                                              i_cell_now.second.region.y_min + cube_index_offsets(1, i_offset) * grid,
-                                              i_cell_now.second.region.z_min + cube_index_offsets(2, i_offset) * grid, grid, 0);
-            auto neighboor_cell_glb = map_glb.cells_glb.find(tmp_posi);
-            if(neighboor_cell_glb != map_glb.cells_glb.end()){
-                Cell *ptr_cell_glb = &(neighboor_cell_glb->second);
-                multi_overlap_cell_glb[i_offset] = (ptr_cell_glb);
-            }
-            else{
-                multi_overlap_cell_glb[i_offset]=(nullptr);
-            }
-        }
-        overlap_ship.multi_cells_glb.push_back(multi_overlap_cell_glb);
-    }
-    g_data.time_find_overlap(0, g_data.step) += t_overlap_region.toc();
-    return overlap_ship;
-}
-#endif
 
 void  Map::findMatchPoints(OverlapCellsRelation & overlap_ship, Map & map_glb, double variance_thr,
                            bool residual_combination){
@@ -598,7 +556,7 @@ void  Map::findMatchPointToMesh(OverlapCellsRelation & overlap_ship, Map & map_g
                                 bool residual_combination){
     //find Match Point for registration. 3Dir, cross cell, point to mesh
     ROS_DEBUG("findMatchPointToMesh");
-    int num_test_all = param.num_test * param.num_test;
+    int num_test_square = param.num_test * param.num_test;
     int n_row =  param.num_test;
     //clear
     TicToc t_overlap_point;
@@ -616,8 +574,8 @@ void  Map::findMatchPointToMesh(OverlapCellsRelation & overlap_ship, Map & map_g
     for(size_t i_cell_now = 0; i_cell_now < overlap_ship.cells_now.size(); i_cell_now++) {
         //for each cell in map_now overlaped
         for(int dir = 0; dir < 3; dir++){
-            Eigen::Matrix<double, 5, Eigen::Dynamic> closest_point_glb = Eigen::MatrixXd::Zero(5, num_test_all);//storer
-            closest_point_glb = Eigen::MatrixXd::Zero(5, num_test_all);
+            Eigen::Matrix<double, 5, Eigen::Dynamic> closest_point_glb = Eigen::MatrixXd::Zero(5, num_test_square);//storer
+            closest_point_glb = Eigen::MatrixXd::Zero(5, num_test_square);
             closest_point_glb.row(4).fill(-1);//distance, -1: not found
             PointMatrix & point_now = (*overlap_ship.cells_now[i_cell_now]).ary_cell_vertices[dir];
             if(point_now.num_point == 0){
@@ -675,11 +633,11 @@ void  Map::findMatchPointToMesh(OverlapCellsRelation & overlap_ship, Map & map_g
             }
 
             //compute normal
-            PointMatrix normal_cell(num_test_all);
+            PointMatrix normal_cell(num_test_square);
             Eigen::Matrix<int, 2, 4> offset;
             offset << 1, 0,-1, 0,
                       0,-1, 0, 1;
-            for(int i_point = 0; i_point < num_test_all; i_point ++) {
+            for(int i_point = 0; i_point < num_test_square; i_point ++) {
                 //Point curr_point = point_now.point.col(i_point);
                 Eigen::Vector3d normal_at_i;
                 normal_at_i.setZero();
@@ -1213,11 +1171,6 @@ void  Map::updateMap(Map & map_now){
             }
             cell_glb.time_stamp = g_data.step;
             cell_glb.updateViewedLocation(g_data.T_seq[g_data.step]);
-            #ifdef VOXBLOX
-            if(param.meshing_tsdf){
-                cells_glb.updateTsdfBlox();
-            }
-            #endif
 
             newly_updated_cells.push_back(& cell_glb);
         }
@@ -1243,11 +1196,6 @@ void  Map::updateMap(Map & map_now){
             Cell tmp_cell ((*cell_now_new).cell_raw_points, (*cell_now_new).ary_cell_vertices, g_data.step,
                            tmp_posi, (*cell_now_new).region);
             tmp_cell.updateViewedLocation(g_data.T_seq[g_data.step]);
-            #ifdef VOXBLOX
-            if(param.meshing_tsdf){
-                tmp_cell.updateTsdfBlox();
-            }
-            #endif
 
             //cells_glb.emplace(tmp_posi, tmp_cell);
             pair<std::unordered_map<double, Cell>::iterator, bool> inserted_cell = cells_glb.emplace(tmp_posi, tmp_cell);

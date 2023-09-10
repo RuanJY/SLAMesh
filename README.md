@@ -11,7 +11,7 @@ We are confident that this work introduced a novel approach to LiDAR SLAM, so we
 
 10/Mar/2023, Preprint of our paper can be found on: [**paper**](https://arxiv.org/pdf/2303.05252.pdf 'title text').
 
-16/Jan/2023, The paper has been accepted for presentation on **ICRA 2023**, 
+16/Jan/2023, The paper has been accepted for presentation on **ICRA 2023**,
 
 ## 1. Introduction
 
@@ -26,7 +26,7 @@ This work designs a **S**imultaneously **L**ocalization **A**nd **Mesh**ing syst
 
 <img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/fig1_mesh_by_slamesh.png" alt="cover" width="60%" />
 
-Author: Jianyuan Ruan, Bo Li, Yibo Wang, Yuxiang Sun. 
+Author: Jianyuan Ruan, Bo Li, Yibo Wang, Yuxiang Sun.
 
 ### 1.2 Demo video
 
@@ -46,7 +46,7 @@ On self-collected dataset:
 
 If you find our research helpful, please cite our [**paper**](https://arxiv.org/pdf/2303.05252.pdf 'title text'). :
 
-[1] Jianyuan Ruan, Bo Li, Yibo Wang, and Yuxiang Sun, "SLAMesh: Real-time LiDAR Simultaneous Localization and Meshing" ICRA 2023. 
+[1] Jianyuan Ruan, Bo Li, Yibo Wang, and Yuxiang Sun, "SLAMesh: Real-time LiDAR Simultaneous Localization and Meshing" ICRA 2023.
 
 
 Other related papers:
@@ -76,7 +76,7 @@ Install ros following [ROS Installation](http://wiki.ros.org/melodic/Installatio
 
 **Ceres**
 
-Install Ceres Solver, version > 2.0. follow [Ceres Installation](http://ceres-solver.org/installation.html).
+Follow [Ceres Installation](http://ceres-solver.org/installation.html) to install Ceres Solver, tested version: 2.0, 2.1 (Error observed with V-2.2).
 
 **mesh_tools**
 
@@ -99,7 +99,7 @@ In Ubuntu18.04, use `libvtk6` because `libvtk7` will conflict with `pcl-ros` in 
 ```
 sudo apt-get install  libvtk6-dev libvtk6-qt-dev
 ```
-In Ubuntu 20.04, 
+In Ubuntu 20.04,
 ```
 sudo apt-get install  libvtk7-dev libvtk7-qt-dev
 ```
@@ -292,6 +292,8 @@ Most of the code are build from scratch , but we also want to acknowledge the fo
 [A-LOAM](https://github.com/HKUST-Aerial-Robotics/A-LOAM): kitti dataset loader and tic-toc
 
 [F-LOAM](https://github.com/wh200720041/floam): help me to write the ceres residuals
+
+[VGICP](https://github.com/SMRT-AIST/fast_gicp): multi-thread
 
 
 
