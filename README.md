@@ -258,6 +258,8 @@ num_margin_old_cell: -1  # do not margin old cells, the cell-based map will have
 
 ### 4.2 Mesh quality
 
+To save the mesh map, in `slamesh_node.cpp`, function `SLAMesher::process()`, line 867, set variable `save_mesh_map` to `true`.
+
 I use the `TanksAndTemples/evaluation` tool to evaluate the mesh. I slightly modify it (remove trajectory). You can find it here: [TanksAndTemples/evaluation_rjy](https://github.com/RuanJY/TanksAndTemples)
 
 Then compare the mesh with the ground-truth point cloud map:
