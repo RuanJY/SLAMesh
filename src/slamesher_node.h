@@ -25,7 +25,7 @@ public:
     bool three_dir;//features fixed
     bool odom_available, read_offline_pcd, cross_overlap, grt_available, imu_feedback,
             meshing_tsdf, full_cover, save_raw_point_clouds, point2mesh{true},
-            residual_combination{true};
+            residual_combination{true}, save_mesh_map;
     int visualisation_type;
     int num_margin_old_cell;
     double bias_acc_x, bias_acc_y;

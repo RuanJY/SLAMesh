@@ -1,17 +1,20 @@
 # SLAMesh
 ## Real-time LiDAR Simultaneous Localization and Meshing
 
-**Personal repository** of our work SLAMesh, please raise issues **here** so that I can get reminders immediately. The code may also more friendly to use and read, but I don't always guarantee it can replicate the result in out paper.
 
-We are confident that this work introduced a novel approach to LiDAR SLAM, so we publish the code to benefit robotics society and welcome everyone to explore opportunities in this approach. :two_men_holding_hands:
 
 ### Update ###
 
-17/Aug/2023, Code released. Spent some time to make my code more user-friendly :triumph:, feel free to contact me with any questions.
+17/Aug/2023, Code released. Spent some time to make my code more user-friendly :triumph:, feel free to contact me with any questions. 
+
+We are confident that this work introduced a novel approach to LiDAR SLAM, and we welcome everyone to explore opportunities in this approach. :two_men_holding_hands: Please raise issues **here** so that I can get reminders immediately.
+
 
 10/Mar/2023, Preprint of our paper can be found on: [**paper**](https://arxiv.org/pdf/2303.05252.pdf 'title text').
 
-16/Jan/2023, The paper has been accepted for presentation on **ICRA 2023**,
+16/Jan/2023, The paper has been accepted for presentation on **ICRA 2023**.
+
+15/Sep/2022, The paper has been submitted to ICRA 2023.
 
 ## 1. Introduction
 
@@ -44,10 +47,21 @@ On self-collected dataset:
 
 ### 1.3 Find more detail
 
-If you find our research helpful, please cite our [**paper**](https://arxiv.org/pdf/2303.05252.pdf 'title text'). :
+If you find our research helpful to your work, please cite our paper:
 
-[1] Jianyuan Ruan, Bo Li, Yibo Wang, and Yuxiang Sun, "SLAMesh: Real-time LiDAR Simultaneous Localization and Meshing" ICRA 2023.
+[1] Jianyuan Ruan, Bo Li, Yibo Wang, and Yuxiang Sun, "SLAMesh: Real-time LiDAR Simultaneous Localization and Meshing" ICRA 2023 ([**pdf**](https://arxiv.org/pdf/2303.05252.pdf 'title text'), [**IEEE**](https://ieeexplore.ieee.org/abstract/document/10161425 'title text')).
 
+```
+@INPROCEEDINGS{10161425,
+  author={Ruan, Jianyuan and Li, Bo and Wang, Yibo and Sun, Yuxiang},
+  booktitle={2023 IEEE International Conference on Robotics and Automation (ICRA)}, 
+  title={SLAMesh: Real-time LiDAR Simultaneous Localization and Meshing}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={3546-3552},
+  doi={10.1109/ICRA48891.2023.10161425}}
+```
 
 Other related papers:
 
@@ -60,11 +74,11 @@ Other related papers:
 [5] Bo Li, Yinqiang Wang, Yu Zhang. Wenjie Zhao, Jianyuan Ruan, and Pin Li, "GP-SLAM: laser-based SLAM approach based on regionalized Gaussian process map reconstruction". Auton Robot 2020.[link](https://link.springer.com/article/10.1007/s10514-020-09906-z)
 
 
-If you understand Chinese, you can also refer to my [Master's thesis](https://connectpolyu-my.sharepoint.com/:b:/g/personal/21041552r_connect_polyu_hk/ESjrlb1oNbVMr4tFeG4bhY0BO0jmY-hlC61a3y67whp-Ww?e=pqOtjT) (now can download it without login) and an article on the WeChat platform: [SLAMesh: 实时LiDAR定位与网格化模型构建
-](https://mp.weixin.qq.com/s/zYORZ1sOVkh-UnPkzzfh_g).
+If you understand Chinese, you can also refer to my [Master's thesis](https://connectpolyu-my.sharepoint.com/:b:/g/personal/21041552r_connect_polyu_hk/ESjrlb1oNbVMr4tFeG4bhY0BO0jmY-hlC61a3y67whp-Ww?e=pqOtjT), an article on the WeChat platform: [SLAMesh: 实时LiDAR定位与网格化模型构建
+](https://mp.weixin.qq.com/s/zYORZ1sOVkh-UnPkzzfh_g), and a talk in [自动驾驶之心and计算机视觉life](https://www.bilibili.com/video/BV1j84y1Z7Fb/?vd_source=a7075e8cce0b5d3273610c2b2539377d).
 
 
-## 2. Install
+## 2. Build
 
 ### 2.1 Prerequisite
 
@@ -121,6 +135,7 @@ It may take you some time.
 2. Install mesh_tools, (I can not install it from official ROS repos now, so I build it from source)
 
 ```
+mkdir -p ./slamesh_ws/src
 cd slamesh_ws/src
 git clone https://github.com/naturerobots/mesh_tools.git
 cd ..
@@ -136,8 +151,8 @@ Clone this repository and build:
 ```
 cd slamesh_ws/src
 git clone https://github.com/RuanJY/SLAMesh.git
-cd ..
-catkin_make
+cd .. && catkin_make
+mkdir slamesh_result
 source ~/slamesh_ws/src/devel/setup.bash
 ```
 ### 2.3 Docker support
@@ -185,9 +200,7 @@ You should get:
 
 <img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/kitti07_mesh.png" alt="kitti07_mesh" width="60%" />
 
-
 If you can not see the mesh, check that the Rviz plugin is sourced correctly. When `mesh_visualization` is disabled, only vertices are published as a point cloud.
-
 
 
 ### 3.2 Run Mai City dataset:
@@ -218,7 +231,7 @@ You can use our sample data recorded with an Ouster OS1-32 LiDAR: [SLAMesh datas
 
 ## 4. Evaluation
 
-SLAMesh saves all its report to the path `result_path`. If you find ros warning: ` Can not open Report file`, create the folder of `result_path` first, or just follow the steps below.
+SLAMesh saves all its report to the path `result_path` given in each **launch** file. If you find ros warning: ` Can not open Report file`, create the folder of `result_path` first.
 
 ### 4.1 Kitti odometry accuracy
 
@@ -226,11 +239,10 @@ The file `0x_pred.txt` is the KITTI format path. I use [KITTI odometry evaluatio
 ](https://github.com/LeoQLi/KITTI_odometry_evaluation_tool) for evaluation:
 
 ```
-cd slamesh_ws
-mkdir result && cd result
+cd slamesh_ws/slamesh_result
 git clone https://github.com/LeoQLi/KITTI_odometry_evaluation_tool
 cd KITTI_odometry_evaluation_tool/
-python evaluation.py --result_dir=./data/ --eva_seqs=07.pred
+python evaluation.py --result_dir=.. --eva_seqs=07.pred
 ```
 
 Run SLAMesh by:
@@ -258,7 +270,7 @@ num_margin_old_cell: -1  # do not margin old cells, the cell-based map will have
 
 ### 4.2 Mesh quality
 
-To save the mesh map, in `slamesh_node.cpp`, function `SLAMesher::process()`, line 867, set variable `save_mesh_map` to `true`.
+To save the mesh map, set parameter `save_mesh_map` in yaml file to `true`. A ply file should be saved in `salmesh_ws/slamesh_result`.
 
 I use the `TanksAndTemples/evaluation` tool to evaluate the mesh. I slightly modify it (remove trajectory). You can find it here: [TanksAndTemples/evaluation_rjy](https://github.com/RuanJY/TanksAndTemples)
 

@@ -486,6 +486,7 @@ void Parameter::initParameter(ros::NodeHandle & nh){
     nh.param("slamesher/max_steps", max_steps, 1);
     std::cout<<"max_steps: "<<max_steps<<std::endl;
     nh.param("slamesher/file_loc_report", file_loc_report, std::string("not_set"));
+    nh.param("slamesher/save_mesh_map", save_mesh_map, false);
 
     //<!--  register param  -->-
     nh.param("slamesher/range_max",  range_max,  100.0);
@@ -864,10 +865,9 @@ void SLAMesher::process(){
     if(g_data.step == param.max_steps){
         std::cout<<"Reach Max Step, exit"<<std::endl;
     }
-    bool save_mesh_map = false;
     map_glb.filterMeshGlb();
     mesh_pub.publish(map_glb.mesh_msg);
-    if(save_mesh_map){
+    if(param.save_mesh_map){
         //at the end, publish global mesh map, may cost seconds
         std::string file_loc_mesh_ply = param.file_loc_report + param.seq + "_mesh.ply";
         map_glb.outputMeshAsPly(file_loc_mesh_ply, map_glb.mesh_msg);
