@@ -153,7 +153,7 @@ void Log::initLog(std::string & log_file_path){
         }
     }
 }
-void Log::saveResult(double code_whole_time, const PointMatrix & map_glb_point_filtered){
+void Log::saveResult(double code_whole_time, const PointMatrix & map_glb_point_filtered, Map &  map_glb){
     //save report
     ROS_DEBUG("saveResult");
     std::cout<<"Saving result" <<std::endl;
@@ -207,18 +207,24 @@ void Log::saveResult(double code_whole_time, const PointMatrix & map_glb_point_f
             << "pose: " << "\n" << pose.leftCols(step+1) << "\n"
             << std::endl;
         file_loc_report_wrt << "raw_point_num_before_voxel_filter: "<<raw_point_num_before_voxel_filter;
-        std::cout << "Result saved in: " << param.file_loc_report << std::endl;
+        std::cout << "Report saved in: " << param.file_loc_report << std::endl;
         file_loc_report_wrt.close();
     }
     else{
-        std::cout <<"Result not saved" << std::endl;
+        std::cout <<"Result not saved, did you creat the folder?" << std::endl;
     }
     //save path
     savePath2TxtKitti(file_loc_path_wrt, path);
-    //savePathTxt(file_loc_path_wrt, path);
-    //savePathTxt(file_loc_path_odom_wrt, path_odom);
     if(param.grt_available){
         savePathTxt(file_loc_path_grt_wrt, path_grt);
+    }
+    //save mesh map
+    if(param.save_mesh_map){
+        //at the end, publish global mesh map, may cost seconds
+        std::string file_loc_mesh_ply = param.file_loc_report + param.seq + "_mesh.ply";
+        if(map_glb.outputMeshAsPly(file_loc_mesh_ply, map_glb.mesh_msg)){
+            std::cout << "Mesh map saved in: " << file_loc_mesh_ply << std::endl;
+        }
     }
     //save raw pcl
     if(param.save_raw_point_clouds){
@@ -230,6 +236,8 @@ void Log::saveResult(double code_whole_time, const PointMatrix & map_glb_point_f
         raw_pcl_store = pclVoxelFilter(cloudPointer, voxel);
         pcl::io::savePCDFileASCII(log_file_path_raw_pcl, raw_pcl_store);
     }
+    g_data.file_loc_path_wrt.close();
+    g_data.file_loc_path_grt_wrt.close();
 }
 void Log::pose_print(ros::Publisher & cloud_pub) const{//ok
     sensor_msgs::PointCloud cloud1 = matrix3DtoPclMsg(pose, step);
@@ -867,14 +875,7 @@ void SLAMesher::process(){
     }
     map_glb.filterMeshGlb();
     mesh_pub.publish(map_glb.mesh_msg);
-    if(param.save_mesh_map){
-        //at the end, publish global mesh map, may cost seconds
-        std::string file_loc_mesh_ply = param.file_loc_report + param.seq + "_mesh.ply";
-        map_glb.outputMeshAsPly(file_loc_mesh_ply, map_glb.mesh_msg);
-    }
-    g_data.saveResult(t_whole.toc(), map_glb.vertices_filted);
-    g_data.file_loc_path_wrt.close();
-    g_data.file_loc_path_grt_wrt.close();
+    g_data.saveResult(t_whole.toc(), map_glb.vertices_filted, map_glb);
 }
 SLAMesher::SLAMesher(ros::NodeHandle & nh_, Parameter & param_, Log & g_data_) : nh (nh_), param(param_), g_data(g_data_){
     odom_pub          = nh.advertise<nav_msgs::Odometry>("/lidar_odometry", 1);

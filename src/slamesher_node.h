@@ -126,7 +126,7 @@ public:
     }
     void savePath2TxtKitti(std::ofstream & file_out, nav_msgs::Path & path_msg);
     void savePathTxt(std::ofstream & file_out, nav_msgs::Path & path_msg);
-    void saveResult(double code_whole_time, const PointMatrix & map_glb_point_filtered);
+    void saveResult(double code_whole_time, const PointMatrix & map_glb_point_filtered, Map &  map_glb);
     void pose_print(ros::Publisher& cloud_pub) const;
     void accumulateRawPoint(pcl::PointCloud<pcl::PointXYZ> pcl_raw, Transf& transf_this_step);
 };

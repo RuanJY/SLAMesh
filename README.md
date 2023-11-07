@@ -270,7 +270,7 @@ num_margin_old_cell: -1  # do not margin old cells, the cell-based map will have
 
 ### 4.2 Mesh quality
 
-To save the mesh map, set parameter `save_mesh_map` in yaml file to `true`. A ply file should be saved in `salmesh_ws/slamesh_result`.
+To save the mesh map, set parameter `save_mesh_map` in yaml file to `true`. A ply file should be saved in `slamesh_ws/slamesh_result`.
 
 I use the `TanksAndTemples/evaluation` tool to evaluate the mesh. I slightly modify it (remove trajectory). You can find it here: [TanksAndTemples/evaluation_rjy](https://github.com/RuanJY/TanksAndTemples)
 

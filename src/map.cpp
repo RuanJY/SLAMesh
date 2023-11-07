@@ -1349,15 +1349,17 @@ bool  Map::outputMeshAsPly(const std::string& filename, const mesh_msgs::MeshGeo
     //std::ofstream stream(filename.c_str());
     std::ofstream stream;
     stream.open(filename, std::ios::out);
-    if(!stream){
-        ROS_WARN("Can not open outputMeshAsPly file");
-    };
     if (!stream) {
+        ROS_WARN("Can not open outputMeshAsPly file");
         std::cout <<"wrong file location of mesh_msg_to_save to save" <<std::endl;
         return false;
     }
 
     size_t num_points = 3 * mesh_msg_to_save.mesh_geometry.faces.size();
+    if(num_points == 0) {
+        ROS_WARN("Empty mesh msg");
+        return false;
+    }
     stream << "ply" << std::endl;
     stream << "format ascii 1.0" << std::endl;
     stream << "element vertex " << num_points << std::endl;
