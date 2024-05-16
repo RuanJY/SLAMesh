@@ -95,13 +95,8 @@ Install Ceres Solver, version 2.0 or 2.1. follow [Ceres Installation](http://cer
 Notice that version > 2.1 may have some compatibility issues with our code. So you can use following command to install ceres:
 ```
 apt-get install cmake libgoogle-glog-dev libgflags-dev libatlas-base-dev libsuitesparse-dev -y
-
 git clone https://github.com/ceres-solver/ceres-solver.git -b 2.1.0
-
-mkdir ceres-bin && cd ceres-bin && \
-
-cmake .. && make -j$(($(nproc)-2)) && \
-
+mkdir ceres-bin && cd ceres-bin && cmake .. && make -j$(($(nproc)-2))
 make install
 ```
 
