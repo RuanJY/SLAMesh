@@ -275,13 +275,13 @@ You can use our sample data recorded with an Ouster OS1-32 LiDAR: [SLAMesh datas
 
 ### 3.4 About visualization
 
-Because mesh-tools rviz plugin do not support incremental mesh intersection, three visualization mode are provided controlled by `visualisation_type1` in the param.yaml file:
+Because mesh-tools rviz plugin do not support incremental mesh intersection, we provide three visualization modes controlled by `visualisation_type` in the param.yaml file:
 
-visualisation_type:
+visualisation_type = 
 
 lighter &#x2191;
 
- - 0, publish registered raw_points_in_world, like fast-lio, lio sam
+ - 0, publish registered raw points in world frame, just like fast-lio, lio sam
 
  - 1, + publish the vertices of mesh as point cloud, each scan + (1/n) map global
 
@@ -299,7 +299,12 @@ SLAMesh saves all its report to the path `result_path` given in each **launch** 
 
 ### 4.1 Kitti odometry accuracy
 
-The file `0x_pred.txt` is the KITTI format path. I use [KITTI odometry evaluation tool
+Run SLAMesh by:
+```
+roslaunch slamesh slamesh_kitti_odometry.launch seq:=/07
+```
+
+Then SLAMesh produce a file named `0*_pred.txt` in the KITTI path format. I use [KITTI odometry evaluation tool
 ](https://github.com/LeoQLi/KITTI_odometry_evaluation_tool) for evaluation:
 
 ```
@@ -309,11 +314,7 @@ cd KITTI_odometry_evaluation_tool/
 python evaluation.py --result_dir=.. --eva_seqs=07.pred
 ```
 
-Run SLAMesh by:
-```
-roslaunch slamesh slamesh_kitti_odometry.launch seq:=/07
-```
-Currently, the result on the KITTI odometry benchmark is:
+The result on the KITTI odometry benchmark is:
 
 [//]: # ()
 [//]: # (| Sequence         | 00     | 01     | 02     | 03     | 04     | 05     | 06     | 07     | 08     | 09     | 10     | Average |)
@@ -333,13 +334,13 @@ Currently, the result on the KITTI odometry benchmark is:
 <img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/slamesh_kitti_path.png" alt="slamesh_kitti_path" width="40%" />
 </div>
 
-Notice that to achieve better KITTI odometry performance, the parameter in `slamesh_kitti_meshing.launch` are set as followed:
+Why use the `slamesh_kitti_odometry.launch` ? To achieve better KITTI odometry performance, the parameter in `slamesh_kitti_odometry.launch` are set as followed:
 ```
 full_cover: false # due to discontinuity phenomenon between cells, shirnk the test locations can improve accuracy.
 num_margin_old_cell: 500 # margin old cells, because KITTI evaluate odometry accuracy rather than consistency.
 ```
 
-However, if you want to have better meshing result, they should be: (in launch `slamesh_kitti_meshing.launch`)
+While in launch `slamesh_kitti_meshing.launch`, to have better meshing result, they aree: 
 ```
 full_cover: true # so that there is no gap between cells.
 num_margin_old_cell: -1  # do not margin old cells, the cell-based map will have implicit loop closure effect.
@@ -351,7 +352,7 @@ num_margin_old_cell: -1  # do not margin old cells, the cell-based map will have
 <img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/kitti_mesh_sample.jpg" alt="kitti_mesh_sample" width="100%" />
 </div>
 
-To save the mesh map, set parameter `save_mesh_map` in yaml file to `true`. A ply file should be saved in `slamesh_ws/slamesh_result`.
+To save the mesh map, set parameter `save_mesh_map` in yaml file to `true`. A `***.ply` file should be saved in `slamesh_ws/slamesh_result`.
 
 I use the `TanksAndTemples/evaluation` tool to evaluate the mesh. I slightly modify it (remove trajectory). You can find it here: [TanksAndTemples/evaluation_rjy](https://github.com/RuanJY/TanksAndTemples)
 
