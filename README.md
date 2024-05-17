@@ -1,16 +1,12 @@
 # SLAMesh
 ## Real-time LiDAR Simultaneous Localization and Meshing
 
-**Personal repository** of our work SLAMesh, please raise issues **here** so that I can get reminders immediately. The code may also more friendly to use and read, but I don't always guarantee it can replicate the result in out paper.
-
+**Personal repository** of our work SLAMesh, please raise issues **here** so that I can get reminders immediately.
 ### Update ###
 
-17/Aug/2023, Code released. Spent some time to make my code more user-friendly :triumph:, feel free to contact me with any questions. 
+17/Aug/2023, Code released. Feel free to contact me with any questions. We are confident that this work introduced a novel approach to LiDAR SLAM, and we welcome everyone to explore opportunities in this approach. :two_men_holding_hands:
 
-We are confident that this work introduced a novel approach to LiDAR SLAM, and we welcome everyone to explore opportunities in this approach. :two_men_holding_hands: Please raise issues **here** so that I can get reminders immediately.
-
-
-10/Mar/2023, Preprint of our paper can be found on: [**paper**](https://arxiv.org/pdf/2303.05252.pdf 'title text').
+10/Mar/2023, Preprint of our paper can be found on: [**paper**](https://arxiv.org/pdf/2303.05252.pdf 'title text'), [**slides**](https://drive.google.com/file/d/15xyX93LAsZ775Ywg8gNO_gJGThD4Hv3N/view?usp=sharing).
 
 16/Jan/2023, The paper has been accepted for presentation on **ICRA 2023**.
 
@@ -22,26 +18,40 @@ This work designs a **S**imultaneously **L**ocalization **A**nd **Mesh**ing syst
 
 ### 1.1 Main features
 
+<div style="text-align: center;">
+  <img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/mesh_macity.jpg" alt="cover" width="60%" />
+</div>
+
 - Build, register, and update the mesh maps in real time with CPU resources. The experiments show that our SLAMesh can run at around 40 Hz.
 - Provide accurate odometry. The localization and meshing accuracy also outperforms the state-of-the-art methods.
 - Different from point-cloud (LOAM), NDT, and Surfel map SLAM, this work has established a new approach to LiDAR SLAM.
 - The key idea is that we conduct a reconstruction of the raw point cloud before registration. This strategy enables fast meshing, data-association without the kd-tree.
 
-<img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/fig1_mesh_by_slamesh.png" alt="cover" width="60%" />
 
 Author: Jianyuan Ruan, Bo Li, Yibo Wang, Yuxiang Sun.
+
+<div style="display: flex;">
+
+[//]: # (  <img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/slamesh_real_world_test_1.gif" width="50%" alt="slamesh_gif_real_world1">)
+  <img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/slamesh_real_world_test_2.gif" width="48%" alt="slamesh_gif_real_world2">
+  <img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/slamesh_kitti07.gif" width="48%" alt="slamesh_gif_kitti07">
+</div>
 
 ### 1.2 Demo video
 
 On public dataset:
 
+<div align=center>
 <a href="https://www.youtube.com/watch?v=bm9u0-d4giw" target="_blank"><img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/cover.png" alt="video1" width="85%" /></a>
+</div>
 
 (or watch it on [bilibili](https://www.bilibili.com/video/BV1HB4y1J7k3/?vd_source=a7075e8cce0b5d3273610c2b2539377d))
 
 On self-collected dataset:
 
+<div align=center>
 <a href="https://www.youtube.com/watch?v=-zMNndGmUho" target="_blank"><img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/real_word_cover2.png" alt="video2" width="85%" /></a>
+</div>
 
 (or watch it on [bilibili](https://www.bilibili.com/video/BV1u84y1h7g3/?vd_source=a7075e8cce0b5d3273610c2b2539377d))
 
@@ -67,11 +77,7 @@ Other related papers:
 
 [2] Jianyuan Ruan, Bo Li, Yinqiang Wang and Zhou Fang, "GP-SLAM+: real-time 3D lidar SLAM based on improved regionalized Gaussian process map reconstruction," IROS 2020. [link](https://ieeexplore.ieee.org/abstract/document/9341028).
 
-[3] Bo Li, Jianyuan Ruan, Yu Zhang, et al, 3D SLAM method based on improved regionalized Gaussian process map construction, 2020 International Conference on Guidance, Navigation and Control (ICGNC), 2022. [link](https://link.springer.com/chapter/10.1007/978-981-15-8155-7_296)
-
-[4] Jianyuan Ruan, Zhou Fang, Bo Li, et al, Evaluation of GP-SLAM in real-world environments, 2019 Chinese Automation Congress (CAC), 2019. [link](https://ieeexplore.ieee.org/document/8996403)
-
-[5] Bo Li, Yinqiang Wang, Yu Zhang. Wenjie Zhao, Jianyuan Ruan, and Pin Li, "GP-SLAM: laser-based SLAM approach based on regionalized Gaussian process map reconstruction". Auton Robot 2020.[link](https://link.springer.com/article/10.1007/s10514-020-09906-z)
+[3] Bo Li, Yinqiang Wang, Yu Zhang. Wenjie Zhao, Jianyuan Ruan, and Pin Li, "GP-SLAM: laser-based SLAM approach based on regionalized Gaussian process map reconstruction". Autonomous Robot 2020.[link](https://link.springer.com/article/10.1007/s10514-020-09906-z)
 
 
 If you understand Chinese, you can also refer to my [Master's thesis](https://connectpolyu-my.sharepoint.com/:b:/g/personal/21041552r_connect_polyu_hk/ESjrlb1oNbVMr4tFeG4bhY0BO0jmY-hlC61a3y67whp-Ww?e=pqOtjT), an article on the WeChat platform: [SLAMesh: 实时LiDAR定位与网格化模型构建
@@ -165,37 +171,44 @@ source ~/slamesh_ws/src/devel/setup.bash
 ```
 ### 2.3 Docker support
 
-If you encounter some trouble with prerequisites, the problem may lay down on the prerequisite; we advise you to use our docker image:
+If you encounter some troubles when building slamesh, the problem may lay down on the prerequisite; we advise you to use the docker image:
 
-1, Build the docker image use Dockerfile:
+**Option 1**, Build the docker image use Dockerfile:
 
 ```
 cd slamesh_ws/src/SLAMesh/docker/
 chmod +x run_docker.sh
-./run_docker.sh
+./run_docker.sh -b
 ```
 
-run it with option `-v` to remap the path of dataset in your PC into the docker, like
-
+Run the docker image:
 ```
-docker run -it -v path_of_dataset_in_your_PC:/root/dataset \
---name test_slamesh slamesh
+docker run -it --rm     --gpus=all     --runtime=nvidia     -e NVIDIA_DRIVER_CAPABILITIES=all     --env="DISPLAY=$DISPLAY" \
+-e "QT_X11_NO_MITSHM=1"     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw"     --env="XAUTHORITY=$XAUTH" --volume="$XAUTH:$XAUTH" \
+--net=host     --privileged \
+--volume=path_of_dataset_in_your_PC:/home/ruanjy/Dataset/ \
+--volume=/home/$USER/slamesh_result:/home/slamesh/slamesh_ws/slamesh_result \
+--name=test_slamesh    slamesh     bash
 ```
-The slamesh are built, so source the workspace and run the launch file.
+change the `path_of_dataset_in_your_PC` to the folder path of the dataset in your PC, like `--volume=/home/ruanjy/kitti_odometry/data_odometry_velodyne/dataset/:/home/ruanjy/Dataset/ \`
 
-2, Use the built image with VNC:
+In this way, SLAMesh are built already, so source the workspace and run the launch file. You can also play rosbag in your host PC.
+
+**Option 2**, otherwise, you can also pull the pre-built docker image with VNC directly:
 
 ```
 docker pull pleaserun/rjy_slam_work:slamesh_18.04
 ```
 
-run it with option `-v` to remap the path of dataset in your PC into the docker,
+Run the docker image:
 ```
 docker run -it -p 5900:5900 -p 2222:22 -e RESOLUTION=1920x1080  \
--v path_of_dataset_in_your_PC:/root/dataset \
---name test_slamesh \
-pleaserun/rjy_slam_work:slamesh_18.04
+--volume=path_of_dataset_in_your_PC:/home/ruanjy/Dataset/ \
+--volume=/home/$USER/slamesh_result:/home/slamesh/slamesh_ws/slamesh_result \
+--name test_slamesh pleaserun/rjy_slam_work:slamesh_18.04
 ```
+
+change the `path_of_dataset_in_your_PC` to the folder path of the dataset in your PC, like `--volume=/home/ruanjy/kitti_odometry/data_odometry_velodyne/dataset/:/home/ruanjy/Dataset/ \`
 
 In this way you can use VNC to enter a graphical interface via port 5900, or use ssh to connect container via port 2222.
 
@@ -226,7 +239,9 @@ roslaunch slamesh slamesh_kitti_meshing.launch seq:=/07
 ```
 You should get:
 
+<div align=center>
 <img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/kitti07_mesh.png" alt="kitti07_mesh" width="60%" />
+</div>
 
 If you can not see the mesh, check that the Rviz plugin is sourced correctly. When `mesh_visualization` is disabled, only vertices are published as a point cloud.
 
@@ -242,8 +257,9 @@ roslaunch slamesh slamesh_maicity.launch seq:=/01
 ```
 You should get:
 
+<div align=center>
 <img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/maicity_mesh.png" alt="maicity_mesh" width="60%" />
-
+</div>
 
 ### 3.3 Run online or ros bag
 ```
@@ -256,6 +272,26 @@ rosbag play your_bag.bag
 The number of LiDAR channels does not matter because our algorithm does not extract features.
 
 You can use our sample data recorded with an Ouster OS1-32 LiDAR: [SLAMesh dataset](https://connectpolyu-my.sharepoint.com/:f:/g/personal/21041552r_connect_polyu_hk/EjhEKl8-1GBLseA_2F7TOvEB3w7OyAJ_kS7DAaWoLay9ng?e=GK1fsd).
+
+### 3.4 About visualization
+
+Because mesh-tools rviz plugin do not support incremental mesh intersection, three visualization mode are provided controlled by `visualisation_type1` in the param.yaml file:
+
+visualisation_type:
+
+lighter &#x2191;
+
+ - 0, publish registered raw_points_in_world, like fast-lio, lio sam
+
+ - 1, + publish the vertices of mesh as point cloud, each scan + (1/n) map global
+
+ - 2, + visualize local updated mesh, each scan
+
+ - 3, + visualize global mesh, (1/n) frame
+
+heavy &#x2193;
+
+ after finish whole process, the global mesh map will be visualized in any mode
 
 ## 4. Evaluation
 
@@ -279,10 +315,23 @@ roslaunch slamesh slamesh_kitti_odometry.launch seq:=/07
 ```
 Currently, the result on the KITTI odometry benchmark is:
 
-| Sequence         | 00     | 01     | 02     | 03     | 04     | 05     | 06     | 07     | 08     | 09     | 10     | Average |
-| ---------------- | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------- |
-| Translation (%)  | 0.771  | 1.2519 | 0.7742 | 0.6366 | 0.5044 | 0.5182 | 0.5294 | 0.3607 | 0.8745 | 0.573  | 0.6455 | 0.6763  |
-| Rotation (deg/m) | 0.0035 | 0.003  | 0.003  | 0.0043 | 0.0013 | 0.003  | 0.0022 | 0.0023 | 0.0027 | 0.0025 | 0.0042 | 0.0029  |
+[//]: # ()
+[//]: # (| Sequence         | 00     | 01     | 02     | 03     | 04     | 05     | 06     | 07     | 08     | 09     | 10     | Average |)
+
+[//]: # (| ---------------- | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------- |)
+
+[//]: # (| Translation &#40;%&#41;  | 0.771  | 1.2519 | 0.7742 | 0.6366 | 0.5044 | 0.5182 | 0.5294 | 0.3607 | 0.8745 | 0.573  | 0.6455 | 0.6763  |)
+
+[//]: # (| Rotation &#40;deg/m&#41; | 0.0035 | 0.003  | 0.003  | 0.0043 | 0.0013 | 0.003  | 0.0022 | 0.0023 | 0.0027 | 0.0025 | 0.0042 | 0.0029  |)
+
+<div align=center>
+<img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/table_odometry_accuracy.png" alt="table_odometry_accuracy" width="100%" />
+</div>
+
+
+<div align=center>
+<img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/slamesh_kitti_path.png" alt="slamesh_kitti_path" width="40%" />
+</div>
 
 Notice that to achieve better KITTI odometry performance, the parameter in `slamesh_kitti_meshing.launch` are set as followed:
 ```
@@ -297,6 +346,10 @@ num_margin_old_cell: -1  # do not margin old cells, the cell-based map will have
 ```
 
 ### 4.2 Mesh quality
+
+<div align=center>
+<img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/kitti_mesh_sample.jpg" alt="kitti_mesh_sample" width="100%" />
+</div>
 
 To save the mesh map, set parameter `save_mesh_map` in yaml file to `true`. A ply file should be saved in `slamesh_ws/slamesh_result`.
 

@@ -4,6 +4,7 @@
 
 # If not working, first do: sudo rm -rf /tmp/.docker.xauth
 # If still not working, try to run the script as root.
+# Acknowledgement: this file are modified from coin-lio(https://github.com/ethz-asl/COIN-LIO?tab=readme-ov-file), by yibo wang
 
 # Default options
 DOCKER=slamesh
@@ -79,20 +80,21 @@ ls -FAlh $XAUTH
 echo ""
 echo "Running docker: $DOCKER as $NAME"
 
-docker run -it --rm \
-    --gpus=all \
-    --runtime=nvidia \
-    -e NVIDIA_DRIVER_CAPABILITIES=all \
-    --env="DISPLAY=$DISPLAY" \
-    -e "QT_X11_NO_MITSHM=1" \
-    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-    --env="XAUTHORITY=$XAUTH" \
-    --volume="$XAUTH:$XAUTH" \
-    --volume=/home/$USER/slamesh_data:/home/slamesh/slamesh_data \
-    --net=host \
-    --privileged \
-    --name=$NAME \
-    ${DOCKER} \
-    bash
+#docker run -it --rm \
+#    --gpus=all \
+#    --runtime=nvidia \
+#    -e NVIDIA_DRIVER_CAPABILITIES=all \
+#    --env="DISPLAY=$DISPLAY" \
+#    -e "QT_X11_NO_MITSHM=1" \
+#    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+#    --env="XAUTHORITY=$XAUTH" \
+#    --volume="$XAUTH:$XAUTH" \
+#    --volume=path_of_dataset_in_your_PC:/home/ruanjy/Dataset/ \
+#    --volume=/home/$USER/slamesh_result:/home/slamesh/slamesh_ws/slamesh_result \
+#    --net=host \
+#    --privileged \
+#    --name=$NAME \
+#    ${DOCKER} \
+#    bash
 
 echo "Done."

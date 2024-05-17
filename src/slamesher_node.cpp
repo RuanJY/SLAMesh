@@ -739,17 +739,21 @@ bool SLAMesher::visualize(Map & map_glb, Map & map_now, int option){
     path_odom_pub.publish(g_data.path_odom);
     path_grt_pub. publish(g_data.path_grt);
 
-    // 0 no output
-    // 1 publish vertices as point cloud, every current scan and skipped map glb
-    // 2 use mesh_tools to visualize mesh, only mesh inside updated cells
-    // 3 use mesh_tools to visualize mesh, updated cells and skipped map mesh glb
+//    Because mesh-tools rviz plugin do not support incremental mesh intersection, three visualization mode are provided
+//    visualisation_type:
+//    0, publish registered raw_points_in_world, like fast-lio, lio sam
+//    1, + publish the vertices of mesh as point cloud, each scan + (1/n) map global
+//    2, + visualize local updated mesh, each scan
+//    3, + visualize global mesh, (1/n) frame
+//    after finish whole process, the global mesh map will be visualized in any mode
+
+    //pub current scan
+    //pub aligned raw points in the world frame
+    scanPrint3D(raw_points_in_world_pub, map_now.points_turned, 1);
 
     if(option == 0){
         return true;
     }
-    //pub current scan
-    //pub aligned raw points in the world frame
-    scanPrint3D(raw_points_in_world_pub, map_now.points_turned, 1);
 
     //pub current scan vertices as pcl
     map_now.filterVerticesByVariance(param.variance_register);
@@ -767,7 +771,7 @@ bool SLAMesher::visualize(Map & map_glb, Map & map_now, int option){
         mesh_pub_local.publish(map_now.mesh_msg);
     }
 
-
+    // after each pub_map_glb_count frame, publish the global map
     static int pub_map_glb_count = 0;
     int skip_map_glb_pub = 50, skip_map_glb_point = 1;
     pub_map_glb_count ++;
@@ -781,9 +785,6 @@ bool SLAMesher::visualize(Map & map_glb, Map & map_now, int option){
             // mesh_tool total map
             map_glb.filterMeshGlb();
             mesh_pub.publish(map_glb.mesh_msg);
-        }
-        if(option == 4){
-
         }
 
         //for debug: normal
