@@ -361,6 +361,14 @@ python run.py \
 
 ### 4.3 Time cost
 
+<div align=center>
+<img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/timecost1.png" alt="timecost1" width="60%" />
+</div>
+
+<div align=center>
+<img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/timecost2.png" alt="timecost2" width="60%" />
+</div>
+
 `***_report.txt` record time cost and other logs.
 
 ## 5. Help you to read the code
