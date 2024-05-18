@@ -361,15 +361,11 @@ python run.py \
 
 ### 4.3 Time cost
 
-<div align=center>
-<img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/timecost1.png" alt="timecost1" width="60%" />
-</div>
+The direct meshing method enables SLAMesh 180x faster than Poisson reconstruction based method, Puma, in the Maicity dataset. The time cost of each step is recorded in the `***_report.txt` file.
 
 <div align=center>
-<img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/timecost2.png" alt="timecost2" width="60%" />
+<img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/timecost.png" alt="timecost" width="60%" />
 </div>
-
-`***_report.txt` record time cost and other logs.
 
 ## 5. Help you to read the code
 
