@@ -22,10 +22,10 @@ This work designs a **S**imultaneously **L**ocalization **A**nd **Mesh**ing syst
   <img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/mesh_macity.jpg" alt="cover" width="60%" />
 </div>
 
-- Build, register, and update the mesh maps in real time with CPU resources. The experiments show that our SLAMesh can run at around 40 Hz.
-- Provide accurate odometry. The localization and meshing accuracy also outperforms the state-of-the-art methods.
-- Different from point-cloud (LOAM), NDT, and Surfel map SLAM, this work has established a new approach to LiDAR SLAM.
-- The key idea is that we conduct a reconstruction of the raw point cloud before registration. This strategy enables fast meshing, data-association without the kd-tree.
+- Build, register, and update the mesh maps directly in real time with CPU resources, around 40 Hz.
+- Provide accurate odometry. Kitti odometry benchmark: 0.6763%.
+- Established a new approach to LiDAR SLAM different from point-cloud, NDT, and surfel map SLAM.
+- Continuous mapping with uncertainty via a reconstruction. Fast meshing, matching without kd-tree.
 
 
 Author: Jianyuan Ruan, Bo Li, Yibo Wang, Yuxiang Sun.
