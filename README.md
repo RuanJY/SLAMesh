@@ -18,17 +18,14 @@ This work designs a **S**imultaneously **L**ocalization **A**nd **Mesh**ing syst
 
 ### 1.1 Main features
 
-<div style="text-align: center;">
-  <img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/mesh_macity.jpg" alt="cover" width="60%" />
-</div>
-
 - Build, register, and update the mesh maps directly in real time with CPU resources, around 40 Hz.
 - Provide accurate odometry. Kitti odometry benchmark: 0.6763%.
 - Established a new approach to LiDAR SLAM different from point-cloud, NDT, and surfel map SLAM.
 - Continuous mapping with uncertainty via a reconstruction. Fast meshing, matching without kd-tree.
 
-
-Author: Jianyuan Ruan, Bo Li, Yibo Wang, Yuxiang Sun.
+<div style="text-align: center;">
+  <img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/mesh_macity.jpg" alt="cover" width="60%" />
+</div>
 
 <div style="display: flex;">
 
@@ -59,7 +56,7 @@ On self-collected dataset:
 
 If you find our research helpful to your work, please cite our paper:
 
-[1] Jianyuan Ruan, Bo Li, Yibo Wang, and Yuxiang Sun, "SLAMesh: Real-time LiDAR Simultaneous Localization and Meshing" ICRA 2023 ([**pdf**](https://arxiv.org/pdf/2303.05252.pdf 'title text'), [**IEEE**](https://ieeexplore.ieee.org/abstract/document/10161425 'title text')).
+[1] Jianyuan Ruan, Bo Li, Yibo Wang, and Yuxiang Sun, "SLAMesh: Real-time LiDAR Simultaneous Localization and Meshing" ICRA 2023 ([**pdf**](https://arxiv.org/pdf/2303.05252.pdf 'title text'), [**IEEE**](https://ieeexplore.ieee.org/abstract/document/10161425 'title text'), [**slides**](https://drive.google.com/file/d/15xyX93LAsZ775Ywg8gNO_gJGThD4Hv3N/view?usp=sharing).).
 
 ```
 @INPROCEEDINGS{10161425,
@@ -282,11 +279,8 @@ visualisation_type =
 lighter &#x2191;
 
  - 0, publish registered raw points in world frame, just like fast-lio, lio sam
-
  - 1, + publish the vertices of mesh as point cloud, each scan + (1/n) map global
-
  - 2, + visualize local updated mesh, each scan
-
  - 3, + visualize global mesh, (1/n) frame
 
 heavy &#x2193;
