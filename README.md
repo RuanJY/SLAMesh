@@ -18,10 +18,10 @@ This work designs a **S**imultaneously **L**ocalization **A**nd **Mesh**ing syst
 
 ### 1.1 Main features
 
-- Build, register, and update the mesh maps directly in real time with CPU resources, around 40 Hz.
-- Provide accurate odometry. Kitti odometry benchmark: 0.6763%.
-- Established a new approach to LiDAR SLAM different from point-cloud, NDT, and surfel map SLAM.
-- Continuous mapping with uncertainty via a reconstruction. Fast meshing, matching without kd-tree.
+- Build, register, and update the **mesh** maps directly in **real-time** with CPU resources, around 40 Hz.
+- Provide accurate **odometry**. Kitti odometry benchmark: 0.6763%.
+- Established a **new** approach to LiDAR SLAM different from point-cloud, NDT, and surfel map SLAM.
+- **Continuous** mapping with **uncertainty** via a reconstruction. Fast meshing, matching **without kd-tree**.
 
 <div style="text-align: center;">
   <img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/mesh_macity.jpg" alt="cover" width="60%" />
