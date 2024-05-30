@@ -131,9 +131,11 @@ void  Map::dividePointsIntoCellInitMap(PointMatrix & points_raw){
     //allocate memory
     PointMatrix init_points_bucket;
     Cell init_cell;
-    int num_bucket = pow(2 * (range_max / grid) + 2, 3) / 1.3;//vertical FOV<90 will be enough, memory comsuming here
-    static std::vector<PointMatrix> ary_points_bucket(num_bucket, init_points_bucket);
-    static std::vector<Cell> ary_bucket_cell(num_bucket, init_cell);
+    //int num_bucket = pow(2 * (range_max / grid) + 2, 3) / 1.3;//vertical FOV<90 will be enough, memory comsuming here
+    int num_bucket = num_grid_x * num_grid_y * num_grid_z;//vertical FOV<90 will be enough, memory comsuming here
+
+    std::vector<PointMatrix> ary_points_bucket(num_bucket, init_points_bucket);
+    std::vector<Cell> ary_bucket_cell(num_bucket, init_cell);
 
     if(num_grid > ary_points_bucket.size()){
         //std::cout << "num_grid " << num_grid << " " << "ary_points_bucket.size " ;
@@ -222,22 +224,23 @@ void  Map::dividePointsIntoCell(PointMatrix & points_raw, const Map & map_glb, b
     //allocate memory
     PointMatrix init_points_bucket;
     Cell init_cell;
-    int num_bucket = pow(2 * (range_max / grid) + 2, 3) / 5;//vertical FOV<90 will be enough, you can decrease this
+    //int num_bucket = pow(2 * (range_max / grid) + 2, 3) / 5;//vertical FOV<90 will be enough, you can decrease this
+    int num_bucket = num_grid_x * num_grid_y * num_grid_z;//vertical FOV<90 will be enough, memory comsuming here
+    if(g_data.step == 1){
+        cells_now.resize(num_bucket);
+    }
     // initial size of pointMatrix to reduce memory comsumption here
     static std::vector<PointMatrix> ary_points_bucket(num_bucket, init_points_bucket);
     static std::vector<int> index_bucket_not_empty;
-
     if(num_grid > ary_points_bucket.size()){
-        //std::cout<<"num_grid "<<num_grid<<" "<<"ary_points_bucket.size " ;
-        ROS_ERROR("Num grid > reserved in ary_points_bucket!");
+        TicToc t_pushing_new_bucket;
         while(num_grid > ary_points_bucket.size()){
             ary_points_bucket.push_back(init_points_bucket);
-            //all_bucket_map_cell.push_back(init_cell);
             cells_now.push_back(std::pair<double, Cell> (0, init_cell));
             num_bucket++;
-            std::cout << ary_points_bucket.size() << " ";
         }
-        std::cout<<std::endl;
+        ROS_WARN("In dividePointsIntoCell, Num grid %d > reserved size in ary_points_bucket %d, pushing..., cost time %d  ms",
+                 num_grid, int(ary_points_bucket.size()), int(t_pushing_new_bucket.toc()));
     }
 
     //clear
