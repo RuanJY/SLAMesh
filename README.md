@@ -144,11 +144,11 @@ sudo make install
 ```
 It may take you some time.
 
-2. Install mesh_tools, (I can not install it from official ROS repos now, so I build it from source)
+2. Install mesh_tools, (their ROS2 version is available but this repo use the ROS1 version. I can not install it from official ROS repos, so I build it from source)
 
 ```
 cd slamesh_ws/src
-git clone https://github.com/naturerobots/mesh_tools.git
+git clone https://github.com/naturerobots/mesh_tools/tree/noetic
 cd ..
 rosdep update
 rosdep install --from-paths src --ignore-src -r -y
