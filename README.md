@@ -170,7 +170,7 @@ source ~/slamesh_ws/src/devel/setup.bash
 
 If you encounter some troubles when building slamesh, the problem may lay down on the prerequisite; we advise you to use the docker image:
 
-**Option 1**, Build the docker image use Dockerfile:
+**Option 1**, Build the docker image using Dockerfile:
 
 ```
 cd slamesh_ws/src/SLAMesh/docker/
@@ -189,7 +189,7 @@ docker run -it --rm     --gpus=all     --runtime=nvidia     -e NVIDIA_DRIVER_CAP
 ```
 change the `path_of_dataset_in_your_PC` to the folder path of the dataset in your PC, like `--volume=/home/ruanjy/kitti_odometry/data_odometry_velodyne/dataset/:/home/ruanjy/Dataset/ \`
 
-In this way, SLAMesh are built already, so source the workspace and run the launch file. You can also play rosbag in your host PC.
+In this way, SLAMesh is built already, so source the workspace and run the launch file. You can also play rosbag in your host PC.
 
 **Option 2**, otherwise, you can also pull the pre-built docker image with VNC directly:
 
@@ -287,6 +287,12 @@ heavy &#x2193;
 
  after finish whole process, the global mesh map will be visualized in any mode
 
+ ### 3.5 About parameter
+ 
+The influences of different parameters in KITTI. our method is not very sensitive to all three parameters because the accuracy is satisfactory in most cases, which means users can favor faster localization or more detailed mapping by adjusting these parameters.
+
+![image](https://github.com/user-attachments/assets/1fa783b7-12a9-4004-a236-ee8d5a6442f5)
+
 ## 4. Evaluation
 
 SLAMesh saves all its report to the path `result_path` given in each **launch** file. If you find ros warning: ` Can not open Report file`, create the folder of `result_path` first.
@@ -366,6 +372,10 @@ The direct meshing method enables SLAMesh 180x faster than Poisson reconstructio
 <div align=center>
 <img src="https://github.com/RuanJY/SLAMesh/blob/master/fig/timecost.png" alt="timecost" width="60%" />
 </div>
+
+
+
+
 
 ## 5. Help you to read the code
 
