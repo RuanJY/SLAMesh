@@ -4,6 +4,8 @@
 **Personal repository** of our work SLAMesh, please raise issues **here** so that I can get reminders immediately.
 ### Update ###
 
+01/Jan/2025, add support for the Unitree L2 LiDAR.
+
 17/Aug/2023, Code released. Feel free to contact me with any questions. We are confident that this work introduced a novel approach to LiDAR SLAM, and we welcome everyone to explore opportunities in this approach. :two_men_holding_hands:
 
 10/Mar/2023, Preprint of our paper can be found on: [**paper**](https://arxiv.org/pdf/2303.05252.pdf 'title text'), [**slides**](https://drive.google.com/file/d/15xyX93LAsZ775Ywg8gNO_gJGThD4Hv3N/view?usp=sharing).
@@ -270,6 +272,18 @@ The number of LiDAR channels does not matter because our algorithm does not extr
 
 You can use our sample data recorded with an Ouster OS1-32 LiDAR: [SLAMesh dataset](https://connectpolyu-my.sharepoint.com/:f:/g/personal/21041552r_connect_polyu_hk/EjhEKl8-1GBLseA_2F7TOvEB3w7OyAJ_kS7DAaWoLay9ng?e=GK1fsd).
 
+For the Unitree LiDAR L2, their bags are available at [Unitree LiDAR L2 indoor](https://oss-global-cdn.unitree.com/static/L2%20Indoor%20Point%20Cloud%20Data.bag) and [Unitree LiDAR L2 outdoor](https://oss-global-cdn.unitree.com/static/L2%20Park%20Point%20Cloud%20Data.bag).
+```
+roslaunch slamesh slamesh_online_unitree.launch
+```
+<center>
+<img src="fig/unitree_l2_indoor.png" alt="unitree_l2_indoor" style="width:50%;" />
+</center>
+<center>
+<img src="fig/unitree_l2_outdoor.png" alt="unitree_l2_indoor" style="width:50%;" />
+</center>
+
+
 ### 3.4 About visualization
 
 Because mesh-tools rviz plugin do not support incremental mesh intersection, we provide three visualization modes controlled by `visualisation_type` in the param.yaml file:
@@ -285,7 +299,7 @@ lighter &#x2191;
 
 heavy &#x2193;
 
- after finish whole process, the global mesh map will be visualized in any mode
+ after finishing the whole process, the global mesh map will be visualized in any mode
 
 ## 4. Evaluation
 

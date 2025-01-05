@@ -8,7 +8,7 @@
     <node pkg="slamesh" type="slamesh" name="slamesher" output="screen">
         <!--
          <remap from="/velodyne_points" to="/points_raw" />
-         <remap from="/velodyne_points" to="/os_cloud_node/points" />
+         <remap from="/velodyne_points" to="/os_cloud_node/points" "/unilidar/cloud" />
 -->
         <remap from="/velodyne_points" to="/os_cloud_node/points" />
         <param name="seq" value="$(arg seq)"/>

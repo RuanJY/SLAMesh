@@ -10,13 +10,13 @@ slamesher:
   save_mesh_map: true
   #register param
   range_max: 60
-  range_min: 3.0
+  range_min: 0.5
   register_times: 5
   cross_overlap: true
   cross_cell_overlap_length: 1
-  num_margin_old_cell: 500
+  num_margin_old_cell: -1
   point2mesh: true
-  residual_combination: true
+  residual_combination: false
   #visualize parameter
   meshing_tsdf: false
   full_cover: true

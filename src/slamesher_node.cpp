@@ -351,7 +351,8 @@ Transf Log::initFirstTransf(){
         }
     }
     //3, give a manual T
-    else{transf_odom_now = createTrans(param.correction_x, param.correction_y, param.correction_z,
+    else{
+        transf_odom_now = createTrans(param.correction_x, param.correction_y, param.correction_z,
                                    param.correction_roll_degree, param.correction_pitch_degree,
                                    param.correction_yaw_degree);
     }
@@ -528,12 +529,12 @@ void Parameter::initParameter(ros::NodeHandle & nh){
 
     nh.param("slamesher/test_param", test_param, 0.0);
 
-    //    nh.param("slamesher/correction_x", correction_x, 0.0);
-//    nh.param("slamesher/correction_y", correction_y, 0.0);
-//    nh.param("slamesher/correction_z", correction_z, 0.0);
-//    nh.param("slamesher/correction_roll_degree",   correction_roll_degree, 0.0);
-//    nh.param("slamesher/correction_pitch_degree", correction_pitch_degree, 0.0);
-//    nh.param("slamesher/correction_yaw_degree",     correction_yaw_degree, 0.0);
+    nh.param("slamesher/correction_x", correction_x, 0.0);
+    nh.param("slamesher/correction_y", correction_y, 0.0);
+    nh.param("slamesher/correction_z", correction_z, 0.0);
+    nh.param("slamesher/correction_roll_degree",   correction_roll_degree, 0.0);
+    nh.param("slamesher/correction_pitch_degree", correction_pitch_degree, 0.0);
+    nh.param("slamesher/correction_yaw_degree",     correction_yaw_degree, 0.0);
     eigen_1 = 48;
     eigen_2 = 0.95;
     eigen_3 = 0.2;
@@ -656,6 +657,7 @@ void SLAMesher::imuIntegration(const sensor_msgs::ImuConstPtr & imu_msg){
 }
 void SLAMesher::groundTruthCallback(const geometry_msgs::PoseStamped::ConstPtr & ground_truth_msg){
     //used in motion capture system
+    //the ground truth is only use to align the first frame with the ground frame, and save both ground truth and slam path for easy comparison.
     ROS_DEBUG("GroundTruth seq: [%d]", ground_truth_msg->header.seq);
 
     //update grt_first_transf
@@ -720,7 +722,7 @@ void SLAMesher::imuCallback(const sensor_msgs::Imu::ConstPtr & imu_msg){
 }
 void SLAMesher::odomCallback(const nav_msgs::Odometry::ConstPtr & odom_msg){
     //receive odometry data
-    //ROS_INFO("Odometry seq: [%d]", odom_msg->header.seq);
+    ROS_INFO("Odometry seq: [%d]", odom_msg->header.seq);
     g_data.odometry_msg_buf.push(odom_msg);
     g_data.transf_odom_now = PoseWithCovariance2transf(odom_msg->pose);
 }

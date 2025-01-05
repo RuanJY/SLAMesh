@@ -36,6 +36,7 @@ bool getPointCloud(PointMatrix & points_result, pcl::PointCloud<pcl::PointXYZ> &
             first = false;
         }
         if(!g_data.pcl_msg_buff_deque.empty()){
+            //get the message
             pcl::fromROSMsg(g_data.pcl_msg_buff_deque.front(), *pcl_raw_ptr);
             get_laser_time = g_data.pcl_msg_buff_deque.front().header.stamp.toSec();
             g_data.pcl_msg_buff = g_data.pcl_msg_buff_deque.front();
