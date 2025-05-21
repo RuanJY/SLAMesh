@@ -6,9 +6,9 @@
 
     <rosparam file="$(find slamesh)/config/maicity.yaml" command="load" />
     <node pkg="slamesh" type="slamesh" name="slamesher" output="screen">
-        <param name="seq"        value="$(arg seq)"/>
-        <param name="file_loc_report"  value="$(arg result_path)"/>
-        <param name="file_loc_dataset" value="$(arg data_path)"/>
+        <param name="slamesher/seq"        value="$(arg seq)"/>
+        <param name="slamesher/file_loc_report"  value="$(arg result_path)"/>
+        <param name="slamesher/file_loc_dataset" value="$(arg data_path)"/>
     </node>
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find slamesh)/config/rviz/slamesh_mesh_tool.rviz" required="false" />
 </launch>
